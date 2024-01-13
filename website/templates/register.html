@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registration-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .message-box {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .error {
+            background-color: #ffdddd;
+            color: #ff0000;
+        }
+
+        .success {
+            background-color: #ddffdd;
+            color: #00aa00;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0bb113;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="registration-container">
+    <h2>Register</h2>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'success' %}
+                <div class="message-box success">{{message}}</div>
+            {% else %}
+                <div class="message-box error">{{message}}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <form id="registrationForm" method="POST">
+        <label for="fullname">Full name:</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="role">Role:</label>
+        <input type="text" id="role" name="role" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+    <span>already Have an account?<a href="/auth/login">Login</a></span>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+{% extends "base.html" %}{% block title %}User Form{% endblock %}
+{% block content %}
+<style>
+    .users-container {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+        height: 100vh;
+        margin: 40px 0 0 0;
+        padding-bottom: 40px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .user-table {
+        margin-top: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        height: fit-content;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        border-bottom: 2px solid #888;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .action-heading {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+    }
+
+    .action-button .edit,
+    .action-button .delete,
+    .user-table a {
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    .user-table .add-user-btn {
+
+        display: flex;
+        justify-content: start;
+        align-items: start;
+
+    }
+
+    .action-button .delete {
+        color: #ff0000;
+        border: 1px solid #ff0000;
+        transition: all ease-in-out 0.2s;
+    }
+
+    .action-button .delete:hover {
+        color: #fff;
+        background-color: #ff0000;
+    }
+
+    .action-button .edit,
+    .user-table a {
+        color: #0bb113;
+        border: 1px solid #0bb113;
+        transition: all ease-in-out 0.2s;
+    }
+
+    .action-button .edit:hover,
+    .user-table a:hover {
+        color: #fff;
+        background-color: #0bb113;
+    }
+    .message-box {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .error {
+            background-color: #ffdddd;
+            color: #ff0000;
+        }
+
+        .success {
+            background-color: #ddffdd;
+            color: #00aa00;
+        }
+</style>
+</head>
+
+<body>
+    <div class="users-container">
+        <div class="user-table">
+            <h2>User Table</h2>
+            <div class="add-user-btn">
+                <a href="/add-user">Add User</a>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'success' %}
+                            <div class="message-box success">{{message}}</div>
+                        {% else %}
+                            <div class="message-box error">{{message}}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if users %}
+                    {% for user in users %}
+
+                    <tr>
+                        <td>{{count}}</td>
+                        <td>{{user.fullname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.role}}</td>
+                        <td>
+                            <div class="action-button">
+                                <a href="/add-user" class="edit">Edit</a>
+                                <a href="{{ url_for('views.delete_user', user_id=user.id) }}" class="delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                    {% endif %}
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+
+
+    <!-- 
+
+{% endblock %} -->

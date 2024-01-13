@@ -1,0 +1,123 @@
+{% extends 'base.html'%}{% block title %}Home Page{% endblock %}
+{%block content%}
+
+<style>
+    .user-container {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        height: 100vh;
+        padding-bottom: 50px;
+        margin: 0;
+    }
+
+    .user-details-container {
+        display: flex;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .left-card {
+        width: 400px;
+        height: 200px;
+    }
+    .left-card a{
+        
+        background-color: #920505;
+        color: #fff;
+        padding:5px 10px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .right-card {
+        width: 700px;
+        height:fit-content;
+        padding-bottom: 50px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        outline: none;
+    }
+    
+    .message-box {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .error {
+            background-color: #ffdddd;
+            color: #ff0000;
+        }
+
+        .success {
+            background-color: #ddffdd;
+            color: #00aa00;
+        }
+
+    h1 {
+        margin-bottom: 10px;
+
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom:50px;
+    }
+</style>
+<div class="user-container">
+    <div class="user-details-container">
+        <div class="card left-card">
+            <h1>{{current_user.fullname}}</h1>
+            <p>{{current_user.role}}</p>
+            <a href="/auth/logout">Logout</a>
+        </div>
+
+        <div class="card right-card">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'success' %}
+                        <div class="message-box success">{{message}}</div>
+                    {% else %}
+                        <div class="message-box error">{{message}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" class="disabled-input" value="{{current_user.fullname}}" readonly>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" class="disabled-input" value="{{current_user.username}}" readonly>
+
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" class="disabled-input" value="{{current_user.email}}" readonly>
+
+            <label for="role">Role:</label>
+            <input type="text" id="role" class="disabled-input" value="{{current_user.role}}" readonly>
+
+            <!-- Add more details as needed -->
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
