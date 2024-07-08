@@ -22,7 +22,7 @@ def users():
     return render_template('users.html', users=all_users, current_user=current_user)
 
 
-@views.route('add-user', methods=['POST', 'GET'])
+@views.route('add-user', methods=['POST'])
 @login_required
 def add_user():
     if request.method == 'POST':
@@ -67,7 +67,7 @@ def add_user():
     return render_template('add_user.html', current_user=current_user)
 
 
-@views.route('/delete-user/<int:user_id>', methods=['POST', 'GET'])
+@views.route('/delete-user/<int:user_id>', methods=['DELETE'])
 @login_required
 def delete_user(user_id):
     user = Users.query.get(user_id)
